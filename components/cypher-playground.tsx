@@ -185,33 +185,33 @@ export function CypherPlayground() {
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <button 
           onClick={() => setMethod("otp")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-black text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-[var(--theme-bg)] hover:bg-black/5"}`}
+          className={`flex-1 py-4 px-6 border-2 border-[var(--theme-fg)] font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-accent)] translate-y-[-4px]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <KeyRound className="inline-block mr-2" /> ONE-TIME PADS
         </button>
         <button 
           onClick={() => setMethod("trans")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-black text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-[var(--theme-bg)] hover:bg-black/5"}`}
+          className={`flex-1 py-4 px-6 border-2 border-[var(--theme-fg)] font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-accent)] translate-y-[-4px]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <Grid3X3 className="inline-block mr-2" /> CHIPHER TRANSPOSISI
         </button>
       </div>
 
-      <div className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_var(--theme-fg)]">
+      <div className="border-4 border-[var(--theme-fg)] bg-[var(--theme-bg)] p-6 shadow-[8px_8px_0px_0px_var(--theme-fg)]">
         
         {/* MODE SELECTOR */}
         <div className="flex gap-4 mb-6 border-b-2 border-black pb-6">
           <button 
             onClick={() => {setMode("enc"); setResult(""); setErrorMsg("")}}
-            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "enc" ? "bg-black text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-black hover:bg-black/5"}`}
+            className={`flex-1 py-2 border-2 border-[var(--theme-fg)] font-bold flex items-center justify-center gap-2 ${mode === "enc" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           >
             <Lock size={18} /> ENKRIPSI
           </button>
           <button 
             onClick={() => {setMode("dec"); setResult(""); setErrorMsg("")}}
-            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "dec" ? "bg-black text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-black hover:bg-black/5"}`}
+            className={`flex-1 py-2 border-2 border-[var(--theme-fg)] font-bold flex items-center justify-center gap-2 ${mode === "dec" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           >
             <Unlock size={18} /> DEKRIPSI
           </button>
@@ -279,25 +279,25 @@ export function CypherPlayground() {
               <ScrollText /> Hasil {mode === "enc" ? "Enkripsi" : "Dekripsi"}
             </h3>
             
-            <div className="bg-black border-2 border-black p-6 font-mono text-sm sm:text-base text-white shadow-[6px_6px_0px_0px_var(--theme-fg)] relative overflow-hidden">
+            <div className="bg-[var(--theme-bg)] border-2 border-[var(--theme-fg)] p-6 font-mono text-sm sm:text-base shadow-[6px_6px_0px_0px_var(--theme-accent)] relative overflow-hidden">
                {/* decorative backdrop */}
               <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                  <Lock size={120} />
               </div>
 
               <div className="space-y-4 relative z-10">
-                <div className="flex flex-col sm:flex-row gap-2 border-b border-gray-800 pb-2">
-                  <span className="text-gray-500 w-32 border-r border-gray-800 shrink-0">INPUT:</span>
-                  <span className="text-gray-300 break-all">{text}</span>
+                <div className="flex flex-col sm:flex-row gap-2 border-b border-[var(--theme-fg)]/30 pb-2">
+                  <span className="opacity-50 w-32 border-r border-[var(--theme-fg)]/30 shrink-0">INPUT:</span>
+                  <span className="opacity-70 break-all">{text}</span>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-2 border-b border-gray-800 pb-2">
-                  <span className="text-gray-500 w-32 border-r border-gray-800 shrink-0">KUNCI:</span>
+                <div className="flex flex-col sm:flex-row gap-2 border-b border-[var(--theme-fg)]/30 pb-2">
+                  <span className="opacity-50 w-32 border-r border-[var(--theme-fg)]/30 shrink-0">KUNCI:</span>
                   <span className="text-yellow-400 break-all">{resultKey || key}</span>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                  <span className="text-[var(--theme-accent)] w-32 border-r border-gray-800 shrink-0 font-bold">OUTPUT:</span>
+                  <span className="text-[var(--theme-accent)] w-32 border-r border-[var(--theme-fg)]/30 shrink-0 font-bold">OUTPUT:</span>
                   <span className="text-[var(--theme-accent)] font-bold text-lg break-all">{result}</span>
                 </div>
               </div>
@@ -312,9 +312,9 @@ export function CypherPlayground() {
                     <thead>
                       <tr>
                         {key.split('').map((k, i) => (
-                          <th key={i} className="border-2 border-black bg-gray-200 p-2 w-10 h-10">
+                          <th key={i} className="border-2 border-[var(--theme-fg)]/40 bg-[var(--theme-bg)] p-2 w-10 h-10 text-[var(--theme-fg)]">
                             {k}
-                            <div className="text-[10px] text-gray-500 mt-1 font-sans">Idx:{visualGrid.order.indexOf(i)+1}</div>
+                            <div className="text-[10px] opacity-50 mt-1 font-sans">Idx:{visualGrid.order.indexOf(i)+1}</div>
                           </th>
                         ))}
                       </tr>
