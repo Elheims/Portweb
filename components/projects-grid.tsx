@@ -41,10 +41,10 @@ export function ProjectsGrid() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 font-mono">
           {projects.map((project, index) => (
-            <div key={index} className="border-2 border-black flex flex-col sm:flex-row bg-white hover:shadow-[12px_12px_0px_0px_var(--theme-fg)] transition-shadow">
+            <div key={index} className="border-2 border-[var(--theme-fg)] flex flex-col sm:flex-row bg-[var(--theme-bg)] hover:shadow-[12px_12px_0px_0px_var(--theme-fg)] transition-shadow">
               
               {/* Main Content Area */}
-              <div className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-black flex flex-col justify-between">
+              <div className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-[var(--theme-fg)] flex flex-col justify-between">
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold uppercase" style={{ fontFamily: 'var(--font-archivo-black)' }}>
                     {project.title}
@@ -53,21 +53,21 @@ export function ProjectsGrid() {
                     {project.description}
                   </p>
                 </div>
-                <div className="mt-8 pt-4 border-t-2 border-black border-dashed flex items-center justify-between">
-                  <span className="bg-black text-white px-3 py-1 text-sm font-bold uppercase">Status: [{project.status}]</span>
-                  <Link href={project.link} className="font-bold underline hover:bg-black hover:text-white px-2 py-1 transition-colors uppercase">
+                <div className="mt-8 pt-4 border-t-2 border-[var(--theme-fg)] border-dashed flex items-center justify-between">
+                  <span className="bg-[var(--theme-fg)] text-[var(--theme-bg)] px-3 py-1 text-sm font-bold uppercase">Status: [{project.status}]</span>
+                  <Link href={project.link} className="font-bold underline hover:bg-[var(--theme-fg)] hover:text-[var(--theme-bg)] px-2 py-1 transition-colors uppercase">
                     View Source ~{'>'}
                   </Link>
                 </div>
               </div>
 
               {/* Technical Specs Sidebar */}
-              <div className="w-full sm:w-48 bg-gray-100 p-6 flex flex-col gap-4">
-                <h4 className="font-bold border-b-2 border-black pb-2 uppercase text-sm">Tech Specs</h4>
+              <div className="w-full sm:w-48 bg-black/5 p-6 flex flex-col gap-4">
+                <h4 className="font-bold border-b-2 border-[var(--theme-fg)] pb-2 uppercase text-sm">Tech Specs</h4>
                 <ul className="space-y-3">
                   {project.specs.map((spec, sIndex) => (
                     <li key={sIndex} className="flex items-center gap-2 text-sm font-bold break-all">
-                      <div className="w-2 h-2 bg-black flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-[var(--theme-fg)] flex-shrink-0"></div>
                       {spec}
                     </li>
                   ))}

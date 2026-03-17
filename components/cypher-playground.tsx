@@ -205,13 +205,13 @@ export function CypherPlayground() {
         <div className="flex gap-4 mb-6 border-b-2 border-black pb-6">
           <button 
             onClick={() => {setMode("enc"); setResult(""); setErrorMsg("")}}
-            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "enc" ? "bg-black text-white" : "bg-white text-black hover:bg-gray-100"}`}
+            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "enc" ? "bg-black text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-black hover:bg-black/5"}`}
           >
             <Lock size={18} /> ENKRIPSI
           </button>
           <button 
             onClick={() => {setMode("dec"); setResult(""); setErrorMsg("")}}
-            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "dec" ? "bg-black text-white" : "bg-white text-black hover:bg-gray-100"}`}
+            className={`flex-1 py-2 border-2 border-black font-bold flex items-center justify-center gap-2 ${mode === "dec" ? "bg-black text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-black hover:bg-black/5"}`}
           >
             <Unlock size={18} /> DEKRIPSI
           </button>
@@ -226,7 +226,7 @@ export function CypherPlayground() {
             <textarea 
               value={text}
               onChange={(e) => setText(e.target.value.toUpperCase())}
-              className="w-full border-2 border-black p-4 font-mono uppercase bg-gray-50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50"
+              className="w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase bg-transparent focus:bg-[var(--theme-bg)] focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50"
               rows={3}
               placeholder="MASUKKAN TEKS DI SINI..."
             />
@@ -238,7 +238,7 @@ export function CypherPlayground() {
                 {method === "otp" ? "Kunci OTP (Huruf Acak)" : "Kata Kunci (Keyword)"}
               </label>
               {method === "otp" && mode === "enc" && (
-                <label className="flex items-center gap-2 text-sm font-bold bg-[#cdffcd] border-2 border-black px-2 py-1 cursor-pointer hover:bg-[#00ff00] transition-colors">
+                <label className={`flex items-center gap-2 text-sm font-bold border-2 border-[var(--theme-fg)] px-2 py-1 cursor-pointer transition-colors ${autoKey ? 'bg-[#00ff00] text-black' : 'bg-transparent hover:bg-[#00ff00]/20'}`}>
                   <input type="checkbox" checked={autoKey} onChange={(e) => setAutoKey(e.target.checked)} className="accent-black w-4 h-4" />
                   Auto-Generate Kunci
                 </label>
@@ -249,7 +249,7 @@ export function CypherPlayground() {
               value={key}
               onChange={(e) => setKey(e.target.value.toUpperCase().replace(/\s/g, ''))}
               disabled={autoKey}
-              className={`w-full border-2 border-black p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50 ${autoKey ? 'bg-gray-200 cursor-not-allowed opacity-50' : 'bg-gray-50'}`}
+              className={`w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50 ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)] cursor-not-allowed opacity-50' : 'bg-transparent'}`}
               placeholder={method === "otp" ? "KUNCI..." : "KATA KUNCI.."}
             />
             {method === "otp" && mode === "enc" && !autoKey && (
@@ -259,7 +259,7 @@ export function CypherPlayground() {
 
           <button 
             onClick={handleProcess}
-            className="w-full bg-black text-[#00ff00] font-black uppercase py-4 border-2 border-black hover:bg-[#00ff00] hover:text-black transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_var(--theme-fg)] active:translate-y-[4px] active:shadow-none"
+            className="w-full bg-[var(--theme-fg)] text-[#00ff00] font-black uppercase py-4 border-2 border-[var(--theme-fg)] hover:bg-[#00ff00] hover:text-[var(--theme-fg)] transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_var(--theme-fg)] active:translate-y-[4px] active:shadow-none"
           >
             <RefreshCcw size={20} /> EKSEKUSI PROSES
           </button>
@@ -306,8 +306,8 @@ export function CypherPlayground() {
             {/* Visualisasi Grid untuk Transposisi (Opsional HANYA UNTUK ENKRIPSI) */}
             {visualGrid.grid.length > 0 && method === "trans" && mode === "enc" && (
               <div className="mt-8">
-                <h4 className="font-bold uppercase mb-4 text-sm bg-black text-white inline-block px-3 py-1">System View: Transposition Matrix</h4>
-                <div className="overflow-x-auto border-2 border-black bg-white p-6 shadow-[4px_4px_0px_0px_var(--theme-fg)]">
+                <h4 className="font-bold uppercase mb-4 text-sm bg-[var(--theme-fg)] text-[var(--theme-bg)] inline-block px-3 py-1">System View: Transposition Matrix</h4>
+                <div className="overflow-x-auto border-2 border-[var(--theme-fg)] bg-[var(--theme-bg)] p-6 shadow-[4px_4px_0px_0px_var(--theme-fg)]">
                   <table className="min-w-full font-mono text-center border-collapse">
                     <thead>
                       <tr>
@@ -323,7 +323,7 @@ export function CypherPlayground() {
                       {visualGrid.grid.map((row, rIdx) => (
                         <tr key={rIdx}>
                           {row.map((cell, cIdx) => (
-                            <td key={cIdx} className="border-2 border-black p-2 bg-gray-50 font-bold">
+                            <td key={cIdx} className="border-2 border-[var(--theme-fg)] p-2 font-bold opacity-80">
                               {cell}
                             </td>
                           ))}
@@ -332,7 +332,7 @@ export function CypherPlayground() {
                     </tbody>
                   </table>
                   
-                  <div className="mt-4 text-sm font-mono flex items-center gap-2 border-l-4 border-[#00ff00] bg-gray-50 p-3">
+                  <div className="mt-4 text-sm font-mono flex items-center gap-2 border-l-4 border-[#00ff00] bg-[var(--theme-fg)]/5 p-3">
                     <strong className="uppercase">Index Baca:</strong> 
                     {visualGrid.order.map((colIdx, i) => (
                       <span key={i} className="bg-black text-white px-2 py-0.5 rounded">

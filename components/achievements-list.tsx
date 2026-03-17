@@ -7,7 +7,7 @@ export function AchievementsList() {
   ]
 
   return (
-    <section id="achievements" className="py-20 px-4 border-b-2 border-black bg-white">
+    <section id="achievements" className="py-20 px-4 border-b-2 border-black bg-[var(--theme-bg)]">
       <div className="container max-w-4xl mx-auto space-y-12">
         <h2 className="text-5xl font-black uppercase tracking-tighter inline-block border-b-4 border-black pb-2" style={{ fontFamily: 'var(--font-archivo-black)' }}>
           System Logs: Achievements

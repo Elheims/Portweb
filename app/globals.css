@@ -6,9 +6,9 @@
 :root {
   /* Warmth/Eye Comfort Dynamic Variables */
   --warmth: 0%;
-  --color-warm-bg: #ffebb5; /* Warna kuning hangat */
-  --color-base-bg: #ffffff; /* Putih bawaan */
-  --color-warm-fg: #3b2f15; /* Hitam memudar kecoklatan */
+  --color-warm-bg: #ffe4a0; /* Jauh lebih kuning dan hangat untuk filter 100% yang pekat */
+  --color-base-bg: #ffffff; 
+  --color-warm-fg: #291a00; /* Coklat super pekat agar kontras tulisan tetap kuat */
   --color-base-fg: #000000;
   
   --theme-bg: color-mix(in srgb, var(--color-warm-bg) var(--warmth), var(--color-base-bg));

@@ -3,7 +3,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   return (
-    <header className="border-b-2 border-black bg-white sticky top-0 z-50">
+    <header className="border-b-2 border-black bg-[var(--theme-bg)] sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between font-mono">
         <Link
           href="/"

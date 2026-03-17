@@ -1,6 +1,6 @@
 export function HeroSection() {
   return (
-    <section id="about" className="py-20 px-4 min-h-[80vh] flex flex-col justify-center items-center border-b-2 border-black bg-white">
+    <section id="about" className="py-20 px-4 min-h-[80vh] flex flex-col justify-center items-center border-b-2 border-black bg-[var(--theme-bg)]">
       <div className="container max-w-4xl mx-auto space-y-10">
         <div className="text-center space-y-4">
           <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter" style={{ fontFamily: 'var(--font-archivo-black)' }}>
