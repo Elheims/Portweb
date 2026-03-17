@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
@@ -39,6 +40,14 @@ export function Header() {
           >
             Achievements
           </Link>
+          <a
+            href="https://panel.ferla.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-2 py-1 border-2 border-[var(--theme-accent)] text-[var(--theme-accent)] hover:bg-[var(--theme-accent)] hover:text-[var(--theme-bg)] transition-colors"
+          >
+            Panel <ExternalLink size={12} />
+          </a>
         </nav>
         </div>
       </div>
