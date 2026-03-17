@@ -333,7 +333,7 @@ export function CypherPlayground() {
             </label>
             <textarea 
               value={text}
-              onChange={(e) => setText(e.target.value.toUpperCase())}
+              onChange={(e) => setText(e.target.value.trimStart().toUpperCase())}
               className="w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase bg-transparent focus:bg-[var(--theme-bg)] focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50"
               rows={3}
               placeholder="MASUKKAN TEKS DI SINI..."
