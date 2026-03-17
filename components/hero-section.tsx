@@ -20,19 +20,19 @@ export function HeroSection() {
             <span className="ml-2 text-sm">ferla@system:~</span>
           </div>
           <div className="p-6 space-y-4">
-            <p><span className="text-green-400">$</span> whoami</p>
+            <p><span className="text-[var(--theme-accent)]">$</span> whoami</p>
             <p className="pl-4 leading-relaxed">
               I'm Abdu Fattah, a passionate Computer Engineering undergraduate specialized in 
               hardware-software interfaces, embedded systems, and rigorous system design. 
               Currently exploring AI, IoT, 3D Printing, Web Development, and high-performance computing.
             </p>
-            <p><span className="text-green-400">$</span> cat skills.txt</p>
+            <p><span className="text-[var(--theme-accent)]">$</span> cat skills.txt</p>
             <p className="pl-4">
               [SYSTEMS]: C/C++, Python, Next.js<br />
               [HARDWARE]: Bambulab A1, Mini Server, Mikrotik RB-941<br />
               [TOOLS]: Linux, Git, Autodesk Inventor, Bash, Docker
             </p>
-            <p className="animate-pulse"><span className="text-green-400">$</span> _</p>
+            <p className="animate-pulse"><span className="text-[var(--theme-accent)]">$</span> _</p>
           </div>
         </div>
       </div>

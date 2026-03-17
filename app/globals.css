@@ -6,13 +6,17 @@
 :root {
   /* Warmth/Eye Comfort Dynamic Variables */
   --warmth: 0%;
-  --color-warm-bg: #ffe4a0; /* Jauh lebih kuning dan hangat untuk filter 100% yang pekat */
+  --color-warm-bg: #0f172a; /* Biru dongker / Navy Blue untuk background */
   --color-base-bg: #ffffff; 
-  --color-warm-fg: #291a00; /* Coklat super pekat agar kontras tulisan tetap kuat */
+  --color-warm-fg: #cbd5e1; /* Biru muda/abu-abu terang (Slate 300) untuk teks agar kontras */
   --color-base-fg: #000000;
+  
+  --color-warm-accent: #38bdf8; /* Malam/Dongker = Sky Blue (lebih kontras dari background) */
+  --color-base-accent: #00ff00; /* Siang/Putih  = Hijau Neon */
   
   --theme-bg: color-mix(in srgb, var(--color-warm-bg) var(--warmth), var(--color-base-bg));
   --theme-fg: color-mix(in srgb, var(--color-warm-fg) var(--warmth), var(--color-base-fg));
+  --theme-accent: color-mix(in srgb, var(--color-warm-accent) var(--warmth), var(--color-base-accent));
   
   --background: var(--theme-bg);
   --foreground: var(--theme-fg);

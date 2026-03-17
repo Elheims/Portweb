@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Sun } from "lucide-react"
+import { Moon, Sun } from "lucide-react"
 
 export function ThemeToggle() {
   const [warmth, setWarmth] = React.useState(0)
@@ -17,8 +17,8 @@ export function ThemeToggle() {
     }
   }, [])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(e.target.value)
+  const handleToggle = () => {
+    const val = warmth === 100 ? 0 : 100
     setWarmth(val)
     document.documentElement.style.setProperty("--warmth", `${val}%`)
     localStorage.setItem("warmthLevel", val.toString())
@@ -27,18 +27,17 @@ export function ThemeToggle() {
   if (!mounted) return <div className="h-10 w-32" />
 
   return (
-    <div className="flex items-center gap-2 border-2 border-black bg-white px-2 py-1 shadow-[2px_2px_0px_0px_var(--theme-fg)]">
-      <Sun size={16} className="text-black" />
-      <span className="text-[10px] font-bold uppercase text-black w-8">{warmth}%</span>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={warmth}
-        onChange={handleChange}
-        className="w-20 md:w-24 accent-black cursor-pointer"
-        aria-label="Atur tingkat filter kuning"
-      />
-    </div>
+    <button
+      onClick={handleToggle}
+      className={`flex items-center gap-2 border-2 border-black px-4 py-2 uppercase font-bold text-sm shadow-[2px_2px_0px_0px_var(--theme-fg)] transition-all ${
+        warmth === 100 
+          ? "bg-[var(--theme-bg)] text-[var(--theme-fg)]" 
+          : "bg-white text-black hover:bg-black hover:text-white"
+      }`}
+      aria-label="Atur Mode Biru"
+    >
+      {warmth === 100 ? <Moon size={16} /> : <Sun size={16} />}
+      {warmth === 100 ? "NIGHT" : "DAY"}
+    </button>
   )
 }

@@ -17,7 +17,7 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-6 text-sm font-bold uppercase">
           <Link
             href="/kripto"
-            className="hover:bg-[#00ff00] hover:text-black px-2 py-1 flex items-center gap-2 transition-colors border-2 border-transparent hover:border-black"
+            className="hover:bg-[var(--theme-accent)] hover:text-[var(--theme-bg)] px-2 py-1 flex items-center gap-2 transition-colors border-2 border-transparent hover:border-[var(--theme-fg)]"
           >
             ↳ Crypto Tools
           </Link>

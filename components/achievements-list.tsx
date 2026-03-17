@@ -13,14 +13,14 @@ export function AchievementsList() {
           System Logs: Achievements
         </h2>
 
-        <div className="border-2 border-black bg-black text-[#00ff00] font-mono p-6 sm:p-8 shadow-[8px_8px_0px_0px_var(--theme-fg)] text-sm sm:text-base overflow-x-auto">
+        <div className="border-2 border-black bg-black text-white font-mono p-6 sm:p-8 shadow-[8px_8px_0px_0px_var(--theme-fg)] text-sm sm:text-base overflow-x-auto">
           <div className="space-y-4 min-w-[500px]">
             {logs.map((log, index) => (
-              <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-4 hover:bg-[#003300] transition-colors p-2 -mx-2">
-                <span className="opacity-70 whitespace-nowrap">[{log.date}]</span>
+              <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-4 hover:bg-[var(--theme-accent)]/20 transition-colors p-2 -mx-2">
+                <span className="text-[var(--theme-accent)] whitespace-nowrap">[{log.date}]</span>
                 <span className="font-bold text-white whitespace-nowrap">{'>'} {log.type}:</span>
                 <span className="flex-1 text-white">{log.title}</span>
-                <span className="whitespace-nowrap">STATUS=[<span className="text-[#00ff00]">{log.status}</span>]</span>
+                <span className="whitespace-nowrap">STATUS=[<span className="text-[var(--theme-accent)] font-bold">{log.status}</span>]</span>
               </div>
             ))}
             <div className="mt-8 animate-pulse text-white">

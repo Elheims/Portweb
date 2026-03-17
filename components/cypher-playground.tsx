@@ -185,14 +185,14 @@ export function CypherPlayground() {
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <button 
           onClick={() => setMethod("otp")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
+          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-black text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-[var(--theme-bg)] hover:bg-black/5"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <KeyRound className="inline-block mr-2" /> ONE-TIME PADS
         </button>
         <button 
           onClick={() => setMethod("trans")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
+          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-black text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-[var(--theme-bg)] hover:bg-black/5"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <Grid3X3 className="inline-block mr-2" /> CHIPHER TRANSPOSISI
@@ -226,7 +226,7 @@ export function CypherPlayground() {
             <textarea 
               value={text}
               onChange={(e) => setText(e.target.value.toUpperCase())}
-              className="w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase bg-transparent focus:bg-[var(--theme-bg)] focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50"
+              className="w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase bg-transparent focus:bg-[var(--theme-bg)] focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50"
               rows={3}
               placeholder="MASUKKAN TEKS DI SINI..."
             />
@@ -238,7 +238,7 @@ export function CypherPlayground() {
                 {method === "otp" ? "Kunci OTP (Huruf Acak)" : "Kata Kunci (Keyword)"}
               </label>
               {method === "otp" && mode === "enc" && (
-                <label className={`flex items-center gap-2 text-sm font-bold border-2 border-[var(--theme-fg)] px-2 py-1 cursor-pointer transition-colors ${autoKey ? 'bg-[#00ff00] text-black' : 'bg-transparent hover:bg-[#00ff00]/20'}`}>
+                <label className={`flex items-center gap-2 text-sm font-bold border-2 border-[var(--theme-fg)] px-2 py-1 cursor-pointer transition-colors ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)]' : 'bg-transparent hover:bg-black/10'}`}>
                   <input type="checkbox" checked={autoKey} onChange={(e) => setAutoKey(e.target.checked)} className="accent-black w-4 h-4" />
                   Auto-Generate Kunci
                 </label>
@@ -249,7 +249,7 @@ export function CypherPlayground() {
               value={key}
               onChange={(e) => setKey(e.target.value.toUpperCase().replace(/\s/g, ''))}
               disabled={autoKey}
-              className={`w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[#00ff00]/50 ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)] cursor-not-allowed opacity-50' : 'bg-transparent'}`}
+              className={`w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50 ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)] cursor-not-allowed opacity-50' : 'bg-transparent'}`}
               placeholder={method === "otp" ? "KUNCI..." : "KATA KUNCI.."}
             />
             {method === "otp" && mode === "enc" && !autoKey && (
@@ -259,7 +259,7 @@ export function CypherPlayground() {
 
           <button 
             onClick={handleProcess}
-            className="w-full bg-[var(--theme-fg)] text-[#00ff00] font-black uppercase py-4 border-2 border-[var(--theme-fg)] hover:bg-[#00ff00] hover:text-[var(--theme-fg)] transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_var(--theme-fg)] active:translate-y-[4px] active:shadow-none"
+            className="w-full bg-[var(--theme-fg)] text-[var(--theme-accent)] font-black uppercase py-4 border-2 border-[var(--theme-fg)] hover:bg-[var(--theme-accent)] hover:text-[var(--theme-fg)] transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_var(--theme-fg)] active:translate-y-[4px] active:shadow-none"
           >
             <RefreshCcw size={20} /> EKSEKUSI PROSES
           </button>
@@ -279,7 +279,7 @@ export function CypherPlayground() {
               <ScrollText /> Hasil {mode === "enc" ? "Enkripsi" : "Dekripsi"}
             </h3>
             
-            <div className="bg-black border-2 border-black p-6 font-mono text-sm sm:text-base text-white shadow-[6px_6px_0px_0px_rgba(0,255,0,1)] relative overflow-hidden">
+            <div className="bg-black border-2 border-black p-6 font-mono text-sm sm:text-base text-white shadow-[6px_6px_0px_0px_var(--theme-fg)] relative overflow-hidden">
                {/* decorative backdrop */}
               <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                  <Lock size={120} />
@@ -297,8 +297,8 @@ export function CypherPlayground() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                  <span className="text-[#00ff00] w-32 border-r border-gray-800 shrink-0 font-bold">OUTPUT:</span>
-                  <span className="text-[#00ff00] font-bold text-lg break-all">{result}</span>
+                  <span className="text-[var(--theme-accent)] w-32 border-r border-gray-800 shrink-0 font-bold">OUTPUT:</span>
+                  <span className="text-[var(--theme-accent)] font-bold text-lg break-all">{result}</span>
                 </div>
               </div>
             </div>
@@ -332,7 +332,7 @@ export function CypherPlayground() {
                     </tbody>
                   </table>
                   
-                  <div className="mt-4 text-sm font-mono flex items-center gap-2 border-l-4 border-[#00ff00] bg-[var(--theme-fg)]/5 p-3">
+                  <div className="mt-4 text-sm font-mono flex items-center gap-2 border-l-4 border-[var(--theme-accent)] bg-[var(--theme-fg)]/5 p-3">
                     <strong className="uppercase">Index Baca:</strong> 
                     {visualGrid.order.map((colIdx, i) => (
                       <span key={i} className="bg-black text-white px-2 py-0.5 rounded">
