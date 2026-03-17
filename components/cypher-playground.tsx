@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Lock, Unlock, KeyRound, RefreshCcw, ScrollText, Grid3X3, ArrowRight } from "lucide-react"
+import { Lock, Unlock, KeyRound, RefreshCcw, ScrollText, Grid3X3, ArrowRight, RotateCcw, AlignJustify } from "lucide-react"
 
 // --- OTP LOGIC ---
 const generateOTPKey = (length: number) => {
@@ -79,7 +79,6 @@ const transEncrypt = (plaintext: string, key: string) => {
     }
   }
   
-  // also return grid visual for UI
   return { cipher: ciphertext, grid, colOrder }
 }
 
@@ -125,25 +124,121 @@ const transDecrypt = (ciphertext: string, key: string) => {
 }
 
 
+// --- CAESAR CIPHER LOGIC ---
+const caesarEncrypt = (plaintext: string, shift: number) => {
+  const pt = plaintext.toUpperCase()
+  let result = ''
+  for (let char of pt) {
+    if (/[A-Z]/.test(char)) {
+      result += String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65)
+    } else {
+      result += char
+    }
+  }
+  return result
+}
+
+const caesarDecrypt = (ciphertext: string, shift: number) => {
+  return caesarEncrypt(ciphertext, (26 - (shift % 26)) % 26)
+}
+
+
+// --- RAIL FENCE LOGIC ---
+const railFenceEncrypt = (plaintext: string, rails: number) => {
+  if (rails < 2) throw new Error("Jumlah rails minimal 2!")
+  const text = plaintext.toUpperCase()
+  const n = text.length
+  
+  // Build rail pattern indices
+  const fence: string[][] = Array.from({ length: rails }, () => [])
+  let rail = 0
+  let direction = 1
+  
+  for (let i = 0; i < n; i++) {
+    fence[rail].push(text[i])
+    if (rail === 0) direction = 1
+    else if (rail === rails - 1) direction = -1
+    rail += direction
+  }
+  
+  // Build visual grid for display
+  const visualRows: string[][] = Array.from({ length: rails }, () => Array(n).fill(' '))
+  rail = 0
+  direction = 1
+  for (let i = 0; i < n; i++) {
+    visualRows[rail][i] = text[i]
+    if (rail === 0) direction = 1
+    else if (rail === rails - 1) direction = -1
+    rail += direction
+  }
+  
+  return {
+    cipher: fence.map(r => r.join('')).join(''),
+    railGrid: visualRows
+  }
+}
+
+const railFenceDecrypt = (ciphertext: string, rails: number) => {
+  if (rails < 2) throw new Error("Jumlah rails minimal 2!")
+  const ct = ciphertext.toUpperCase()
+  const n = ct.length
+  
+  // Find which rail each position belongs to
+  const railPattern: number[] = Array(n).fill(0)
+  let rail = 0
+  let direction = 1
+  for (let i = 0; i < n; i++) {
+    railPattern[i] = rail
+    if (rail === 0) direction = 1
+    else if (rail === rails - 1) direction = -1
+    rail += direction
+  }
+  
+  // Fill rails with ciphertext characters
+  const railCounts: number[] = Array(rails).fill(0)
+  railPattern.forEach(r => railCounts[r]++)
+  
+  const railData: string[][] = []
+  let cidx = 0
+  for (let r = 0; r < rails; r++) {
+    railData.push(ct.slice(cidx, cidx + railCounts[r]).split(''))
+    cidx += railCounts[r]
+  }
+  
+  // Read off in zig-zag order
+  const railIdxs: number[] = Array(rails).fill(0)
+  let result = ''
+  for (let i = 0; i < n; i++) {
+    const r = railPattern[i]
+    result += railData[r][railIdxs[r]++]
+  }
+  return result
+}
+
+
 export function CypherPlayground() {
-  const [method, setMethod] = useState<"otp" | "trans">("otp")
+  const [method, setMethod] = useState<"otp" | "trans" | "caesar" | "railfence">("otp")
   const [mode, setMode] = useState<"enc" | "dec">("enc")
   
   const [text, setText] = useState("")
   const [key, setKey] = useState("")
   const [autoKey, setAutoKey] = useState(false)
+  const [caesarShift, setCaesarShift] = useState(3)
+  const [railCount, setRailCount] = useState(3)
   
   const [result, setResult] = useState("")
   const [resultKey, setResultKey] = useState("")
   const [errorMsg, setErrorMsg] = useState("")
   const [visualGrid, setVisualGrid] = useState<{grid: string[][], order: number[]}>({grid: [], order: []})
+  const [railGrid, setRailGrid] = useState<string[][]>([])
+
+  const resetOutput = () => {
+    setResult(""); setResultKey(""); setErrorMsg("")
+    setVisualGrid({grid: [], order: []}); setRailGrid([])
+  }
 
   const handleProcess = () => {
-    setErrorMsg("")
-    setResult("")
-    setResultKey("")
-    setVisualGrid({grid: [], order: []})
-    
+    resetOutput()
     try {
       if (method === "otp") {
         if (mode === "enc") {
@@ -156,21 +251,31 @@ export function CypherPlayground() {
             throw new Error(`Kunci Manual terlalu pendek! Butuh minimal ${alphaLen} huruf.`)
           }
           const { cipher, usedKey } = otpEncrypt(text, currentKey)
-          setResult(cipher)
-          setResultKey(usedKey)
+          setResult(cipher); setResultKey(usedKey)
         } else {
-          const plain = otpDecrypt(text, key)
-          setResult(plain)
+          setResult(otpDecrypt(text, key))
         }
-      } else {
-        // Transposisi
+      } else if (method === "trans") {
         if (mode === "enc") {
           const { cipher, grid, colOrder } = transEncrypt(text, key)
-          setResult(cipher)
-          setVisualGrid({ grid, order: colOrder })
+          setResult(cipher); setVisualGrid({ grid, order: colOrder })
         } else {
-          const plain = transDecrypt(text, key)
-          setResult(plain)
+          setResult(transDecrypt(text, key))
+        }
+      } else if (method === "caesar") {
+        if (mode === "enc") {
+          setResult(caesarEncrypt(text, caesarShift))
+          setResultKey(String(caesarShift))
+        } else {
+          setResult(caesarDecrypt(text, caesarShift))
+        }
+      } else if (method === "railfence") {
+        if (mode === "enc") {
+          const { cipher, railGrid: rg } = railFenceEncrypt(text, railCount)
+          setResult(cipher); setRailGrid(rg)
+          setResultKey(String(railCount))
+        } else {
+          setResult(railFenceDecrypt(text, railCount))
         }
       }
     } catch (err: any) {
@@ -178,39 +283,42 @@ export function CypherPlayground() {
     }
   }
 
+  const tabs = [
+    { id: "otp",       label: "ONE-TIME PADS",    icon: <KeyRound className="inline-block mr-2" size={18} /> },
+    { id: "trans",     label: "TRANSPOSISI",       icon: <Grid3X3 className="inline-block mr-2" size={18} /> },
+    { id: "caesar",    label: "CAESAR CIPHER",     icon: <RotateCcw className="inline-block mr-2" size={18} /> },
+    { id: "railfence", label: "RAIL FENCE",        icon: <AlignJustify className="inline-block mr-2" size={18} /> },
+  ]
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-10">
       
       {/* HEADER TABS */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <button 
-          onClick={() => setMethod("otp")}
-          className={`flex-1 py-4 px-6 border-2 border-[var(--theme-fg)] font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-accent)] translate-y-[-4px]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
-          style={{ fontFamily: 'var(--font-archivo-black)' }}
-        >
-          <KeyRound className="inline-block mr-2" /> ONE-TIME PADS
-        </button>
-        <button 
-          onClick={() => setMethod("trans")}
-          className={`flex-1 py-4 px-6 border-2 border-[var(--theme-fg)] font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-accent)] translate-y-[-4px]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
-          style={{ fontFamily: 'var(--font-archivo-black)' }}
-        >
-          <Grid3X3 className="inline-block mr-2" /> CHIPHER TRANSPOSISI
-        </button>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => { setMethod(tab.id as any); resetOutput() }}
+            className={`py-3 px-4 border-2 border-[var(--theme-fg)] font-black uppercase tracking-tighter text-sm transition-all ${method === tab.id ? "bg-[var(--theme-fg)] text-[var(--theme-bg)] shadow-[4px_4px_0px_0px_var(--theme-accent)] translate-y-[-2px]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
+            style={{ fontFamily: 'var(--font-archivo-black)' }}
+          >
+            {tab.icon}{tab.label}
+          </button>
+        ))}
       </div>
 
       <div className="border-4 border-[var(--theme-fg)] bg-[var(--theme-bg)] p-6 shadow-[8px_8px_0px_0px_var(--theme-fg)]">
         
         {/* MODE SELECTOR */}
-        <div className="flex gap-4 mb-6 border-b-2 border-black pb-6">
+        <div className="flex gap-4 mb-6 border-b-2 border-[var(--theme-fg)]/30 pb-6">
           <button 
-            onClick={() => {setMode("enc"); setResult(""); setErrorMsg("")}}
+            onClick={() => { setMode("enc"); resetOutput() }}
             className={`flex-1 py-2 border-2 border-[var(--theme-fg)] font-bold flex items-center justify-center gap-2 ${mode === "enc" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           >
             <Lock size={18} /> ENKRIPSI
           </button>
           <button 
-            onClick={() => {setMode("dec"); setResult(""); setErrorMsg("")}}
+            onClick={() => { setMode("dec"); resetOutput() }}
             className={`flex-1 py-2 border-2 border-[var(--theme-fg)] font-bold flex items-center justify-center gap-2 ${mode === "dec" ? "bg-[var(--theme-fg)] text-[var(--theme-bg)]" : "bg-[var(--theme-bg)] text-[var(--theme-fg)] hover:opacity-80"}`}
           >
             <Unlock size={18} /> DEKRIPSI
@@ -232,30 +340,73 @@ export function CypherPlayground() {
             />
           </div>
 
-          <div>
-            <div className="flex justify-between items-end mb-2">
-              <label className="block font-black uppercase">
-                {method === "otp" ? "Kunci OTP (Huruf Acak)" : "Kata Kunci (Keyword)"}
-              </label>
-              {method === "otp" && mode === "enc" && (
-                <label className={`flex items-center gap-2 text-sm font-bold border-2 border-[var(--theme-fg)] px-2 py-1 cursor-pointer transition-colors ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)]' : 'bg-transparent hover:bg-black/10'}`}>
-                  <input type="checkbox" checked={autoKey} onChange={(e) => setAutoKey(e.target.checked)} className="accent-black w-4 h-4" />
-                  Auto-Generate Kunci
-                </label>
+          {/* KEY INPUT — per metode */}
+          {method === "otp" && (
+            <div>
+              <div className="flex justify-between items-end mb-2">
+                <label className="block font-black uppercase">Kunci OTP (Huruf Acak)</label>
+                {mode === "enc" && (
+                  <label className={`flex items-center gap-2 text-sm font-bold border-2 border-[var(--theme-fg)] px-2 py-1 cursor-pointer transition-colors ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)]' : 'bg-transparent hover:opacity-80'}`}>
+                    <input type="checkbox" checked={autoKey} onChange={(e) => setAutoKey(e.target.checked)} className="w-4 h-4" />
+                    Auto-Generate Kunci
+                  </label>
+                )}
+              </div>
+              <input 
+                type="text"
+                value={key}
+                onChange={(e) => setKey(e.target.value.toUpperCase().replace(/\s/g, ''))}
+                disabled={autoKey}
+                className={`w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50 ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)] cursor-not-allowed opacity-50' : 'bg-transparent'}`}
+                placeholder="KUNCI..."
+              />
+              {mode === "enc" && !autoKey && (
+                <p className="text-xs font-mono mt-2 opacity-50">*Minimal sepanjang huruf alphabet di dalam plaintext.</p>
               )}
             </div>
-            <input 
-              type="text"
-              value={key}
-              onChange={(e) => setKey(e.target.value.toUpperCase().replace(/\s/g, ''))}
-              disabled={autoKey}
-              className={`w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50 ${autoKey ? 'bg-[var(--theme-fg)] text-[var(--theme-bg)] cursor-not-allowed opacity-50' : 'bg-transparent'}`}
-              placeholder={method === "otp" ? "KUNCI..." : "KATA KUNCI.."}
-            />
-            {method === "otp" && mode === "enc" && !autoKey && (
-               <p className="text-xs font-mono mt-2 text-gray-500">*Minimal sepanjang huruf alphabet di dalam plaintext Anda.</p>
-            )}
-          </div>
+          )}
+
+          {method === "trans" && (
+            <div>
+              <label className="block font-black uppercase mb-2">Kata Kunci (Keyword)</label>
+              <input 
+                type="text"
+                value={key}
+                onChange={(e) => setKey(e.target.value.toUpperCase().replace(/\s/g, ''))}
+                className="w-full border-2 border-[var(--theme-fg)] p-4 font-mono uppercase bg-transparent focus:outline-none focus:ring-4 focus:ring-[var(--theme-accent)]/50"
+                placeholder="KATA KUNCI..."
+              />
+            </div>
+          )}
+
+          {method === "caesar" && (
+            <div>
+              <label className="block font-black uppercase mb-2">Shift (Geser) — 1 hingga 25</label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="range" min={1} max={25} value={caesarShift}
+                  onChange={(e) => setCaesarShift(Number(e.target.value))}
+                  className="flex-1 accent-[var(--theme-accent)]"
+                />
+                <span className="text-3xl font-black w-12 text-center text-[var(--theme-accent)] tabular-nums">{caesarShift}</span>
+              </div>
+              <p className="text-xs font-mono mt-2 opacity-50">A → {String.fromCharCode(((0 + caesarShift) % 26) + 65)}, B → {String.fromCharCode(((1 + caesarShift) % 26) + 65)}, C → {String.fromCharCode(((2 + caesarShift) % 26) + 65)} ...</p>
+            </div>
+          )}
+
+          {method === "railfence" && (
+            <div>
+              <label className="block font-black uppercase mb-2">Jumlah Rail (Baris) — minimal 2</label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="range" min={2} max={8} value={railCount}
+                  onChange={(e) => setRailCount(Number(e.target.value))}
+                  className="flex-1 accent-[var(--theme-accent)]"
+                />
+                <span className="text-3xl font-black w-12 text-center text-[var(--theme-accent)] tabular-nums">{railCount}</span>
+              </div>
+            </div>
+          )}
 
           <button 
             onClick={handleProcess}
@@ -267,35 +418,35 @@ export function CypherPlayground() {
 
         {/* ERROR */}
         {errorMsg && (
-          <div className="mt-6 border-2 border-red-600 bg-red-100 text-red-700 font-bold p-4 uppercase flex items-center gap-2">
+          <div className="mt-6 border-2 border-red-500 bg-red-500/10 text-red-400 font-bold p-4 uppercase flex items-center gap-2">
             <span>[!] ERROR:</span> {errorMsg}
           </div>
         )}
 
         {/* OUTPUT */}
         {result && (
-          <div className="mt-8 border-t-4 border-black pt-8">
+          <div className="mt-8 border-t-4 border-[var(--theme-fg)]/30 pt-8">
             <h3 className="text-2xl font-black uppercase mb-4 flex items-center gap-2">
               <ScrollText /> Hasil {mode === "enc" ? "Enkripsi" : "Dekripsi"}
             </h3>
             
             <div className="bg-[var(--theme-bg)] border-2 border-[var(--theme-fg)] p-6 font-mono text-sm sm:text-base shadow-[6px_6px_0px_0px_var(--theme-accent)] relative overflow-hidden">
-               {/* decorative backdrop */}
               <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                 <Lock size={120} />
+                <Lock size={120} />
               </div>
-
               <div className="space-y-4 relative z-10">
                 <div className="flex flex-col sm:flex-row gap-2 border-b border-[var(--theme-fg)]/30 pb-2">
                   <span className="opacity-50 w-32 border-r border-[var(--theme-fg)]/30 shrink-0">INPUT:</span>
                   <span className="opacity-70 break-all">{text}</span>
                 </div>
-                
-                <div className="flex flex-col sm:flex-row gap-2 border-b border-[var(--theme-fg)]/30 pb-2">
-                  <span className="opacity-50 w-32 border-r border-[var(--theme-fg)]/30 shrink-0">KUNCI:</span>
-                  <span className="text-yellow-400 break-all">{resultKey || key}</span>
-                </div>
-                
+                {(resultKey) && (
+                  <div className="flex flex-col sm:flex-row gap-2 border-b border-[var(--theme-fg)]/30 pb-2">
+                    <span className="opacity-50 w-32 border-r border-[var(--theme-fg)]/30 shrink-0">
+                      {method === "caesar" ? "SHIFT:" : method === "railfence" ? "RAILS:" : "KUNCI:"}
+                    </span>
+                    <span className="text-yellow-400 break-all">{resultKey || key}</span>
+                  </div>
+                )}
                 <div className="flex flex-col sm:flex-row gap-2 pt-2">
                   <span className="text-[var(--theme-accent)] w-32 border-r border-[var(--theme-fg)]/30 shrink-0 font-bold">OUTPUT:</span>
                   <span className="text-[var(--theme-accent)] font-bold text-lg break-all">{result}</span>
@@ -303,7 +454,7 @@ export function CypherPlayground() {
               </div>
             </div>
 
-            {/* Visualisasi Grid untuk Transposisi (Opsional HANYA UNTUK ENKRIPSI) */}
+            {/* Visualisasi Transposisi Grid */}
             {visualGrid.grid.length > 0 && method === "trans" && mode === "enc" && (
               <div className="mt-8">
                 <h4 className="font-bold uppercase mb-4 text-sm bg-[var(--theme-fg)] text-[var(--theme-bg)] inline-block px-3 py-1">System View: Transposition Matrix</h4>
@@ -332,15 +483,39 @@ export function CypherPlayground() {
                     </tbody>
                   </table>
                   
-                  <div className="mt-4 text-sm font-mono flex items-center gap-2 border-l-4 border-[var(--theme-accent)] bg-[var(--theme-fg)]/5 p-3">
+                  <div className="mt-4 text-sm font-mono flex flex-wrap items-center gap-2 border-l-4 border-[var(--theme-accent)] bg-[var(--theme-fg)]/5 p-3">
                     <strong className="uppercase">Index Baca:</strong> 
                     {visualGrid.order.map((colIdx, i) => (
-                      <span key={i} className="bg-black text-white px-2 py-0.5 rounded">
+                      <span key={i} className="bg-[var(--theme-fg)] text-[var(--theme-bg)] px-2 py-0.5 rounded text-xs">
                         Klm {colIdx + 1} ({key[colIdx]})
-                        {i < visualGrid.order.length - 1 && <ArrowRight size={12} className="inline mx-1 text-gray-500"/>}
+                        {i < visualGrid.order.length - 1 && <ArrowRight size={12} className="inline mx-1 opacity-50"/>}
                       </span>
                     ))}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Visualisasi Rail Fence */}
+            {railGrid.length > 0 && method === "railfence" && mode === "enc" && (
+              <div className="mt-8">
+                <h4 className="font-bold uppercase mb-4 text-sm bg-[var(--theme-fg)] text-[var(--theme-bg)] inline-block px-3 py-1">System View: Rail Fence Pattern</h4>
+                <div className="overflow-x-auto border-2 border-[var(--theme-fg)] bg-[var(--theme-bg)] p-6 shadow-[4px_4px_0px_0px_var(--theme-fg)]">
+                  <table className="font-mono text-center border-collapse">
+                    <tbody>
+                      {railGrid.map((row, rIdx) => (
+                        <tr key={rIdx}>
+                          <td className="pr-3 text-xs opacity-50 font-sans text-right w-12">Rail {rIdx + 1}</td>
+                          {row.map((cell, cIdx) => (
+                            <td key={cIdx} className={`w-8 h-8 text-sm font-bold ${cell !== ' ' ? 'border border-[var(--theme-accent)]/50 text-[var(--theme-accent)]' : 'text-transparent'}`}>
+                              {cell || '·'}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="text-xs opacity-50 mt-3 font-mono">↑ Dibaca per baris dari atas ke bawah → menghasilkan ciphertext</p>
                 </div>
               </div>
             )}
