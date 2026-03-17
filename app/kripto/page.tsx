@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react"
 
 export default function KriptoPage() {
   return (
-    <div className="min-h-screen bg-[#f4f4f0] text-black">
+    <div className="min-h-screen text-[var(--theme-fg)]">
       <div className="container mx-auto px-4 py-8">
         
         <div className="mb-8 flex items-center justify-between border-b-4 border-black pb-4">

@@ -4,9 +4,15 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Strict B&W brutalist theme variables */
-  --theme-bg: #ffffff;
-  --theme-fg: #000000;
+  /* Warmth/Eye Comfort Dynamic Variables */
+  --warmth: 0%;
+  --color-warm-bg: #ffebb5; /* Warna kuning hangat */
+  --color-base-bg: #ffffff; /* Putih bawaan */
+  --color-warm-fg: #3b2f15; /* Hitam memudar kecoklatan */
+  --color-base-fg: #000000;
+  
+  --theme-bg: color-mix(in srgb, var(--color-warm-bg) var(--warmth), var(--color-base-bg));
+  --theme-fg: color-mix(in srgb, var(--color-warm-fg) var(--warmth), var(--color-base-fg));
   
   --background: var(--theme-bg);
   --foreground: var(--theme-fg);
@@ -35,17 +41,7 @@
   --radius: 0rem;
 }
 
-.dark {
-  /* Warm/Sepia Mode untuk eye-comfort tanpa merusak brutalism */
-  --theme-bg: #fdf4e4; 
-  --theme-fg: #1c1a17; 
-  --secondary: #e8dfcc;
-  --muted: #d4cbb8;
-  --muted-foreground: #5c584f;
-  --chart-2: #8a8273;
-  --chart-3: #a39c8e;
-  --chart-4: #ccc2b0;
-}
+/* Dark class dihapus, digantikan kontrol slider penuh tanpa plugin */
 
 @theme inline {
   --color-white: var(--theme-bg);
