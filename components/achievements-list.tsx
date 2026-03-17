@@ -1,9 +1,9 @@
 export function AchievementsList() {
   const logs = [
-    { date: "2025-10", type: "AWARD", title: "1st Place - National Robotics Competition", status: "OK" },
-    { date: "2024-05", type: "CERT", title: "CompTIA Security+ Certified", status: "VERIFIED" },
-    { date: "2024-02", type: "DEAN'S LIST", title: "GPA 3.9/4.0", status: "SUCCESS" },
-    { date: "2023-11", type: "HACKATHON", title: "Best Hardware Hack - TechHacks", status: "WIN" }
+    { date: "2026-2", type: "CERT", title: "Machine Learning By ASAH", status: "VERIFIED" },  
+    { date: "2026-1", type: "Capstone", title: "AI Learning Insight", status: "VERIFIED" },
+    { date: "2000-00", type: "******", title: "******", status: "******" },
+    { date: "2000-00", type: "******", title: "******", status: "******" }
   ]
 
   return (

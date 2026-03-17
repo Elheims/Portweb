@@ -2,26 +2,33 @@ import Link from "next/link"
 
 const projects = [
   {
-    title: "RISC-V Processor Design",
-    description: "A custom 32-bit RISC-V pipelined processor architecture designed from scratch. Outperforms standard educational cores in branch prediction.",
-    specs: ["Verilog", "FPGA", "Logisim"],
-    status: "FUNCTIONAL",
+    title: "AI Learning Insight Dashboard",
+    description: "Dashboard for Learning Platform, providing AI Insight for the students.",
+    specs: ["Python", "CapRover", "Pandas", "Numpy"],
+    status: "NDA",
     link: "#"
   },
   {
-    title: "RTOS Kernel Implementation",
-    description: "Lightweight real-time operating system with preemptive scheduling and priority inheritance. Tested on STM32 microcontrollers.",
-    specs: ["C/C++", "Assembly", "STM32"],
+    title: "Whack a Mole Game",
+    description: "Whack a Mole Game 10 Button, with LED Display and Indicator.",
+    specs: ["C/C++", "Serial", "STM32"],
     status: "STABLE",
-    link: "#"
+    link: "https://github.com/Elheims/Mikro/tree/main/Mikro"
   },
   {
-    title: "Autonomous Drone Controller",
-    description: "PID-based flight controller with sensor fusion for MPU6050 telemetry data processing in real-time.",
-    specs: ["Rust", "Embedded", "I2C/SPI"],
-    status: "PROTOTYPE",
-    link: "#"
-  }
+    title: "6 Axis Robotic Arm",
+    description: "Controlable 6 Axis Robotic Arm.",
+    specs: ["C", "ESP32", "NEMA17", "TMC2209"],
+    status: "ONGOING",
+    link: "https://github.com/DDeGonge/OS-ARM"
+  },
+  {
+    title: "Online Store Review Sentiment Analysis",
+    description: "Simple Web app to analyze sentiment of online store reviews on google playstore.",
+    specs: ["Python", "Web Scraping", "Pandas", "Scikit-learn"],
+    status: "FUNCTIONAL",
+    link: "https://github.com/Elheims/analisis-sentimen-toko-online"
+  },
 ]
 
 export function ProjectsGrid() {

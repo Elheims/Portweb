@@ -13,6 +13,12 @@ export function Header() {
         </Link>
         <nav className="flex items-center gap-6 text-sm font-bold uppercase">
           <Link
+            href="/kripto"
+            className="hover:bg-[#00ff00] hover:text-black px-2 py-1 flex items-center gap-2 transition-colors border-2 border-transparent hover:border-black"
+          >
+            ↳ Crypto Tools
+          </Link>
+          <Link
             href="#about"
             className="hover:bg-black hover:text-white px-2 py-1 transition-colors border-2 border-transparent hover:border-black"
           >

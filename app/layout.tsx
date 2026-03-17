@@ -19,11 +19,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "ferla.id - Computer Engineering Undergraduate",
   description:
-    "Portfolio of Ferla, a Computer Engineering Undergraduate. Projects, achievements, and technical profile.",
+    "Portfolio of Abdu Fattah, a Computer Engineering Undergraduate. Projects, achievements, and technical profile.",
   openGraph: {
     title: "ferla.id - Computer Engineering Undergraduate",
     description:
-      "Portfolio of Ferla, a Computer Engineering Undergraduate.",
+      "Portfolio of Abdu Fattah, a Computer Engineering Undergraduate.",
     url: "https://ferla.id",
     siteName: "ferla.id",
     type: "website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ferla.id - Computer Engineering Undergraduate",
     description:
-      "Portfolio of Ferla, a Computer Engineering Undergraduate.",
+      "Portfolio of Abdu Fattah, a Computer Engineering Undergraduate.",
   },
 }
 

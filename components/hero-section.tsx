@@ -22,15 +22,15 @@ export function HeroSection() {
           <div className="p-6 space-y-4">
             <p><span className="text-green-400">$</span> whoami</p>
             <p className="pl-4 leading-relaxed">
-              I'm Ferla, a passionate Computer Engineering undergraduate specialized in 
+              I'm Abdu Fattah, a passionate Computer Engineering undergraduate specialized in 
               hardware-software interfaces, embedded systems, and rigorous system design. 
-              Currently exploring FPGA development, RTOS architectures, and high-performance computing.
+              Currently exploring AI, IoT, 3D Printing, Web Development, and high-performance computing.
             </p>
             <p><span className="text-green-400">$</span> cat skills.txt</p>
             <p className="pl-4">
-              [SYSTEMS]: C/C++, Rust, Assembly (ARM, x86)<br />
-              [HARDWARE]: Verilog, VHDL, FPGA, PCB Design<br />
-              [TOOLS]: Linux, Git, Make, Bash, Docker
+              [SYSTEMS]: C/C++, Python, Next.js<br />
+              [HARDWARE]: Bambulab A1, Mini Server, Mikrotik RB-941<br />
+              [TOOLS]: Linux, Git, Autodesk Inventor, Bash, Docker
             </p>
             <p className="animate-pulse"><span className="text-green-400">$</span> _</p>
           </div>
