@@ -14,13 +14,13 @@ export function Footer() {
         </div>
         
         <div className="flex gap-4">
-          <Link href="https://github.com" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
+          <Link href="https://github.com/Elheims" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
             GitHub
           </Link>
-          <Link href="https://linkedin.com" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
+          <Link href="www.linkedin.com/in/abdufh" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
             LinkedIn
           </Link>
-          <Link href="mailto:info@ferla.id" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
+          <Link href="mailto:tata@ferla.id" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
             Email
           </Link>
         </div>
