@@ -185,21 +185,21 @@ export function CypherPlayground() {
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <button 
           onClick={() => setMethod("otp")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
+          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "otp" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <KeyRound className="inline-block mr-2" /> ONE-TIME PADS
         </button>
         <button 
           onClick={() => setMethod("trans")}
-          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
+          className={`flex-1 py-4 px-6 border-2 border-black font-black uppercase tracking-tighter text-xl transition-all ${method === "trans" ? "bg-[#00ff00] text-black shadow-[4px_4px_0px_0px_var(--theme-fg)] translate-y-[-4px]" : "bg-white hover:bg-gray-100"}`}
           style={{ fontFamily: 'var(--font-archivo-black)' }}
         >
           <Grid3X3 className="inline-block mr-2" /> CHIPHER TRANSPOSISI
         </button>
       </div>
 
-      <div className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div className="border-4 border-black bg-white p-6 shadow-[8px_8px_0px_0px_var(--theme-fg)]">
         
         {/* MODE SELECTOR */}
         <div className="flex gap-4 mb-6 border-b-2 border-black pb-6">
@@ -259,7 +259,7 @@ export function CypherPlayground() {
 
           <button 
             onClick={handleProcess}
-            className="w-full bg-black text-[#00ff00] font-black uppercase py-4 border-2 border-black hover:bg-[#00ff00] hover:text-black transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[4px] active:shadow-none"
+            className="w-full bg-black text-[#00ff00] font-black uppercase py-4 border-2 border-black hover:bg-[#00ff00] hover:text-black transition-colors flex items-center justify-center gap-2 text-lg shadow-[4px_4px_0px_0px_var(--theme-fg)] active:translate-y-[4px] active:shadow-none"
           >
             <RefreshCcw size={20} /> EKSEKUSI PROSES
           </button>
@@ -307,7 +307,7 @@ export function CypherPlayground() {
             {visualGrid.grid.length > 0 && method === "trans" && mode === "enc" && (
               <div className="mt-8">
                 <h4 className="font-bold uppercase mb-4 text-sm bg-black text-white inline-block px-3 py-1">System View: Transposition Matrix</h4>
-                <div className="overflow-x-auto border-2 border-black bg-white p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="overflow-x-auto border-2 border-black bg-white p-6 shadow-[4px_4px_0px_0px_var(--theme-fg)]">
                   <table className="min-w-full font-mono text-center border-collapse">
                     <thead>
                       <tr>

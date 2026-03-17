@@ -12,7 +12,7 @@ export function HeroSection() {
         </div>
 
         {/* Terminal Style Bio Window */}
-        <div className="border-2 border-black bg-black text-white font-mono shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div className="border-2 border-black bg-black text-white font-mono shadow-[8px_8px_0px_0px_var(--theme-fg)]">
           <div className="border-b-2 border-white flex items-center px-4 py-2 gap-2 bg-black">
             <div className="w-3 h-3 rounded-full bg-white"></div>
             <div className="w-3 h-3 rounded-full bg-white border border-white bg-transparent"></div>

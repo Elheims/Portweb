@@ -4,35 +4,52 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Strict B&W brutalist -- NO colors */
-  --background: #ffffff;
-  --foreground: #000000;
-  --card: #ffffff;
-  --card-foreground: #000000;
-  --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
-  --primary-foreground: #ffffff;
+  /* Strict B&W brutalist theme variables */
+  --theme-bg: #ffffff;
+  --theme-fg: #000000;
+  
+  --background: var(--theme-bg);
+  --foreground: var(--theme-fg);
+  --card: var(--theme-bg);
+  --card-foreground: var(--theme-fg);
+  --popover: var(--theme-bg);
+  --popover-foreground: var(--theme-fg);
+  --primary: var(--theme-fg);
+  --primary-foreground: var(--theme-bg);
   --secondary: #f0f0f0;
-  --secondary-foreground: #000000;
+  --secondary-foreground: var(--theme-fg);
   --muted: #e5e5e5;
   --muted-foreground: #555555;
-  --accent: #000000;
-  --accent-foreground: #ffffff;
-  --destructive: #000000;
-  --destructive-foreground: #ffffff;
-  --border: #000000;
-  --input: #ffffff;
-  --ring: #000000;
-  --chart-1: #000000;
+  --accent: var(--theme-fg);
+  --accent-foreground: var(--theme-bg);
+  --destructive: var(--theme-fg);
+  --destructive-foreground: var(--theme-bg);
+  --border: var(--theme-fg);
+  --input: var(--theme-bg);
+  --ring: var(--theme-fg);
+  --chart-1: var(--theme-fg);
   --chart-2: #555555;
   --chart-3: #888888;
   --chart-4: #bbbbbb;
-  --chart-5: #000000;
+  --chart-5: var(--theme-fg);
   --radius: 0rem;
 }
 
+.dark {
+  /* Warm/Sepia Mode untuk eye-comfort tanpa merusak brutalism */
+  --theme-bg: #fdf4e4; 
+  --theme-fg: #1c1a17; 
+  --secondary: #e8dfcc;
+  --muted: #d4cbb8;
+  --muted-foreground: #5c584f;
+  --chart-2: #8a8273;
+  --chart-3: #a39c8e;
+  --chart-4: #ccc2b0;
+}
+
 @theme inline {
+  --color-white: var(--theme-bg);
+  --color-black: var(--theme-fg);
   --font-sans: var(--font-archivo-black);
   --font-mono: var(--font-jetbrains-mono);
   --color-background: var(--background);

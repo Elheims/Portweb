@@ -20,7 +20,7 @@ export default function KriptoPage() {
         </div>
 
         <section className="mb-12 max-w-4xl mx-auto">
-          <div className="border-l-8 border-[#00ff00] bg-white p-6 border-y-2 border-r-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="border-l-8 border-[#00ff00] bg-white p-6 border-y-2 border-r-2 border-black shadow-[4px_4px_0px_0px_var(--theme-fg)]">
             <h2 className="text-2xl font-black uppercase mb-2">Keamanan Sistem</h2>
             <p className="font-mono text-sm sm:text-base text-gray-700">
               Implementasi algoritma <strong>One Time Pads (OTP)</strong> dan <strong>Cipher Transposisional (Columnar)</strong> 

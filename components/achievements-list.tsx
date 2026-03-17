@@ -13,7 +13,7 @@ export function AchievementsList() {
           System Logs: Achievements
         </h2>
 
-        <div className="border-2 border-black bg-black text-[#00ff00] font-mono p-6 sm:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-sm sm:text-base overflow-x-auto">
+        <div className="border-2 border-black bg-black text-[#00ff00] font-mono p-6 sm:p-8 shadow-[8px_8px_0px_0px_var(--theme-fg)] text-sm sm:text-base overflow-x-auto">
           <div className="space-y-4 min-w-[500px]">
             {logs.map((log, index) => (
               <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-4 hover:bg-[#003300] transition-colors p-2 -mx-2">

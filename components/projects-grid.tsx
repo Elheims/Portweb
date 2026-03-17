@@ -41,7 +41,7 @@ export function ProjectsGrid() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 font-mono">
           {projects.map((project, index) => (
-            <div key={index} className="border-2 border-black flex flex-col sm:flex-row bg-white hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-shadow">
+            <div key={index} className="border-2 border-black flex flex-col sm:flex-row bg-white hover:shadow-[12px_12px_0px_0px_var(--theme-fg)] transition-shadow">
               
               {/* Main Content Area */}
               <div className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-black flex flex-col justify-between">

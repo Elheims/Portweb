@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   return (
@@ -11,7 +12,9 @@ export function Header() {
         >
           ferla.id
         </Link>
-        <nav className="flex items-center gap-6 text-sm font-bold uppercase">
+        <div className="flex items-center gap-6">
+          <ThemeToggle />
+          <nav className="hidden md:flex items-center gap-6 text-sm font-bold uppercase">
           <Link
             href="/kripto"
             className="hover:bg-[#00ff00] hover:text-black px-2 py-1 flex items-center gap-2 transition-colors border-2 border-transparent hover:border-black"
@@ -37,6 +40,7 @@ export function Header() {
             Achievements
           </Link>
         </nav>
+        </div>
       </div>
     </header>
   );

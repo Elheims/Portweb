@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Archivo_Black, JetBrains_Mono } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 const archivoBlack = Archivo_Black({
@@ -47,7 +48,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${archivoBlack.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-mono antialiased">{children}</body>
+      <body className="font-mono antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
