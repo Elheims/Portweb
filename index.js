@@ -1,12 +1,17 @@
-const { execSync } = require('child_process');
+const { createServer } = require('http')
+const { parse } = require('url')
+const next = require('next')
 
-try {
-  console.log('Building the Next.js project...');
-  execSync('npm run build', { stdio: 'inherit' });
+const dev = false
+const app = next({ dev })
+const handle = app.getRequestHandler()
 
-  console.log('Starting the Next.js server...');
-  execSync('npm run start', { stdio: 'inherit' });
-} catch (error) {
-  console.error('Failed to start:', error);
-  process.exit(1);
-}
+app.prepare().then(() => {
+  createServer((req, res) => {
+    const parsedUrl = parse(req.url, true)
+    handle(req, res, parsedUrl)
+  }).listen(process.env.PORT || 3000, (err) => {
+    if (err) throw err
+    console.log('> Ready on server')
+  })
+})
