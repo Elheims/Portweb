@@ -17,7 +17,7 @@ export function HeroSection() {
             <div className="w-3 h-3 rounded-full bg-white"></div>
             <div className="w-3 h-3 rounded-full bg-white border border-white bg-transparent"></div>
             <div className="w-3 h-3 rounded-full bg-white border border-white bg-transparent"></div>
-            <span className="ml-2 text-sm">ferla@system:~</span>
+            <span className="ml-2 text-sm">tata@ferla.id / abdufh4@gmail.com</span>
           </div>
           <div className="p-6 space-y-4">
             <p><span className="text-[var(--theme-accent)]">$</span> whoami</p>

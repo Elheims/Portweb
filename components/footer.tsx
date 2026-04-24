@@ -17,7 +17,7 @@ export function Footer() {
           <Link href="https://github.com/Elheims" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
             GitHub
           </Link>
-          <Link href="www.linkedin.com/in/abdufh" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
+          <Link href="https://www.linkedin.com/in/abdufh/" target="_blank" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
             LinkedIn
           </Link>
           <Link href="mailto:tata@ferla.id" className="border-2 border-white px-4 py-2 hover:bg-white hover:text-black transition-colors uppercase text-sm">
